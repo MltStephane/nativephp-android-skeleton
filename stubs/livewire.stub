@@ -1,0 +1,16 @@
+<?php
+
+namespace [namespace];
+
+use Livewire\Component;
+use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Layout;
+
+#[Layout('layouts.public')]
+class [class] extends Component
+{
+    public function render(): View
+    {
+        return view('[view]');
+    }
+}

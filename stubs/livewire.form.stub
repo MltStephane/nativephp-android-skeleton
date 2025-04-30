@@ -1,0 +1,39 @@
+<?php
+
+namespace DummyNamespace;
+
+use Livewire\Attributes\Validate;
+use Livewire\Form;
+
+class DummyClass extends Form
+{
+    public ?Model $model = null;
+
+    #[Validate('required')]
+    public ?string $name = null;
+
+    public function setModel(Model $model): void {
+        $this->model = $model;
+
+        $this->name = $model->name;
+    }
+
+    public function save(): bool
+    {
+        $this->validate();
+
+        if ($this->model?->exists) {
+            return $this->model->update($this->all());
+        }
+
+        $model = Model::create($this->all());
+
+        $exists = $model->exists;
+
+        if ($exists) {
+            $this->model = $model;
+        }
+
+        return $exists;
+    }
+}
