@@ -10,20 +10,22 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "laravel/framework": "^12.0",
+        "laravel/framework": "^12.12",
         "laravel/tinker": "^2.10.1",
-        "livewire/livewire": "^3.6",
-        "nativephp/mobile": "^1.0"
+        "livewire/flux": "^2.1.6",
+        "livewire/flux-pro": "^2.1.6",
+        "livewire/livewire": "^3.6.3",
+        "nativephp/mobile": "^1.0.2"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.23",
+        "fakerphp/faker": "^1.24.1",
         "laravel/pail": "^1.2.2",
-        "laravel/pint": "^1.13",
-        "laravel/sail": "^1.41",
+        "laravel/pint": "^1.22",
+        "laravel/sail": "^1.42",
         "mltstephane/laravel-stubs": "^1.1",
-        "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.6",
-        "pestphp/pest": "^3.8",
+        "mockery/mockery": "^1.6.12",
+        "nunomaduro/collision": "^8.8",
+        "pestphp/pest": "^3.8.2",
         "pestphp/pest-plugin-laravel": "^3.2"
     },
     "autoload": {
@@ -77,12 +79,16 @@
             "php-http/discovery": true
         }
     },
-    "repositories": [
-        {
+    "repositories": {
+        "flux-pro": {
+            "type": "composer",
+            "url": "https://composer.fluxui.dev"
+        },
+        "0": {
             "type": "composer",
             "url": "https://nativephp.composer.sh"
         }
-    ],
+    },
     "minimum-stability": "stable",
     "prefer-stable": true
 }

@@ -123,4 +123,5 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'backend_url' => env('APP_BACKEND_URL', 'http://localhost/api/app/'),
 ];
