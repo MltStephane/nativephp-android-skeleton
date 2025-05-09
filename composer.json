@@ -10,7 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "laravel/framework": "^12.12",
+        "laravel/framework": "^12.13",
         "laravel/tinker": "^2.10.1",
         "livewire/flux": "^2.1.6",
         "livewire/flux-pro": "^2.1.6",
@@ -20,7 +20,7 @@
     "require-dev": {
         "fakerphp/faker": "^1.24.1",
         "laravel/pail": "^1.2.2",
-        "laravel/pint": "^1.22",
+        "laravel/pint": "^1.22.1",
         "laravel/sail": "^1.42",
         "mltstephane/laravel-stubs": "^1.1",
         "mockery/mockery": "^1.6.12",
