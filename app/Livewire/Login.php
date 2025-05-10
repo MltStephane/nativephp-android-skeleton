@@ -24,18 +24,19 @@ class Login extends Component
 
     public function login()
     {
-        Validator::make([
+        $validator = Validator::make([
             'email' => $this->email,
             'password' => $this->password,
         ], [
             'email' => ['required', 'email'],
             'password' => ['required'],
-        ]);
+        ])->validate();
 
         try {
             AuthenticationService::login($this->email, $this->password);
-        } catch (\Throwable $exception) {
-            $this->error = ' Ces identifiants ne correspondent pas à nos enregistrements.';
+        } catch (\Throwable) {
         }
+
+        session()->flash('status', $validator->errors()->first());
     }
 }

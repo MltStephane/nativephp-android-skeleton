@@ -9,8 +9,15 @@
     </head>
     <body class="bg-blue-100 dark:bg-blue-50/20 relative">
         <div class="flex items-center justify-center min-h-screen w-full p-8">
-            <div class="block w-full">
-                {!! $slot !!}
+            <div class="block w-full space-y-6">
+                <div class="text-center">
+                    <flux:heading size="xl">
+                        {{ config('app.name') }}
+                    </flux:heading>
+                </div>
+                <flux:card>
+                    {!! $slot !!}
+                </flux:card>
             </div>
         </div>
         <div class="absolute top-5 right-5">

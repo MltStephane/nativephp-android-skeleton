@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\AccessToken;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
@@ -13,13 +12,11 @@ class BackendHttpService
         $url = str(config('app.backend_url'))->append($endpoint)->replace('//', '/')->toString();
 
         if ($shouldBeAuthenticated) {
-            $accessToken = AccessToken::latest()->first();
-
-            if (null === $accessToken) {
+            if (! AccessTokenService::hasAccessToken()) {
                 abort(401, 'Utilisateur non authentifié. Veuillez vous connecter pour accéder à cette ressource.');
             }
 
-            return Http::withToken($accessToken->value)->post($url, $data);
+            return Http::withToken(AccessTokenService::get())->post($url, $data);
         }
 
         return Http::post($url, $data);
@@ -30,13 +27,11 @@ class BackendHttpService
         $url = str(config('app.backend_url'))->append($endpoint)->replace('//', '/')->toString();
 
         if ($shouldBeAuthenticated) {
-            $accessToken = AccessToken::latest()->first();
-
-            if (null === $accessToken) {
+            if (! AccessTokenService::hasAccessToken()) {
                 abort(401, 'Utilisateur non authentifié. Veuillez vous connecter pour accéder à cette ressource.');
             }
 
-            return Http::withToken($accessToken->value)->get($url, $query);
+            return Http::withToken(AccessTokenService::get())->get($url, $query);
         }
 
         return Http::get($url, $query);

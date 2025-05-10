@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\AccessToken;
 use App\Models\User;
 
 class AuthenticationService
@@ -21,15 +20,13 @@ class AuthenticationService
             abort(401, 'Unauthorized');
         }
 
-        AccessToken::create([
-            'value' => $token,
-        ]);
+        AccessTokenService::store($token);
 
         if (self::isLoggedIn()) {
-            redirect()->route('login');
+            redirect()->route('homepage');
         }
 
-        redirect()->route('homepage');
+        redirect()->route('login');
     }
 
     public static function isLoggedIn(): bool
@@ -61,10 +58,40 @@ class AuthenticationService
     {
         $check = BackendHttpService::post('/logout');
 
-        if (null === $check->json()) {
+        if ($check->json()) {
             redirect()->route('login');
+        } else {
+            abort(500, 'Unable to logout');
+        }
+    }
+
+    public static function register(string $name, string $email, string $password, string $passwordConfirmation): ?array
+    {
+        $response = BackendHttpService::post('/register', [
+            'name' => $name,
+            'email' => $email,
+            'password' => $password,
+            'password_confirmation' => $passwordConfirmation,
+        ], false);
+
+        if (array_key_exists('errors', $response->json())) {
+            return json_decode($response->json('errors'), true);
         }
 
-        abort(500, 'Unable to logout');
+        $token = $response->json('token');
+
+        if (null === $token) {
+            abort(401, 'Unauthorized');
+        }
+
+        AccessTokenService::store($token);
+
+        if (self::isLoggedIn()) {
+            redirect()->route('homepage');
+        }
+
+        redirect()->route('login');
+
+        return null;
     }
 }
